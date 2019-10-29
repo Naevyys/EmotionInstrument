@@ -39,6 +39,7 @@ class emotionAnalyser:
 
 		for i in range(4):
 			if top < emotionArray[i][0]:
+				top = emotionArray[i][0]
 				emotion = emotionArray[i][1]
 
 		return emotion
@@ -80,6 +81,7 @@ def main():
 	except KeyboardInterrupt:
 
 		print("Shutting down...")
+
 	cv2.destroyAllWindows()
 
 main()
