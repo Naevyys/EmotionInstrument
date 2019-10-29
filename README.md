@@ -53,6 +53,11 @@ All commands should work both in Linux Ubuntu bash and Windows command promt. To
 
     $ git checkout YOUR-BRANCH
 
+**Change username and email**
+
+    $ git config [--global|--local] user.name "YOUR-USERNAME"
+    $ git config [--global|--local] user.email "YOUR-EMAIL" 
+
 **Push to github**
 
 1. Stage files
@@ -74,4 +79,8 @@ All commands should work both in Linux Ubuntu bash and Windows command promt. To
 **Pull**
 
     $ git pull origin BRANCH
+
+**Check status**
+
+    $ git status
 
