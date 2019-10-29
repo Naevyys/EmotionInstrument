@@ -2,6 +2,7 @@
 
 import rospy
 import cv2
+from std_msgs.msg import String
 from sensor_msgs.msg import Image
 from qt_nuitrack_app.msg import Faces
 from cv_bridge import CvBridge, CvBridgeError
@@ -14,11 +15,15 @@ class emotionAnalyser:
 	def __init__(self):
 
 		self.facesSub = rospy.Subscriber("qt_nuitrack_app/faces", Faces, self.faceCallback)
+		self.emotionPub = rospy.Publisher("/QTInstrument/emotion", String, queue_size=1)
 
 	def faceCallback(self, data):
 
 		self.face = data.faces[0]
-		self.FacialExpression = findEmotion(self.face)
+
+		self.expression = self.findEmotion(self.face)
+
+		self.emotionPub.publish(self.expression)
 
 	def findEmotion(self, face):
 
@@ -38,9 +43,6 @@ class emotionAnalyser:
 
 		return emotion
 	
-	def getEmotion(self):
-
-		return self.facialExpression
 
 class imageView:
 
