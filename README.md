@@ -32,6 +32,8 @@ Contains the code for the final technical deliverable of Iris Kremer: a python p
 
 ### Other
 
+- BSP3 activity report: https://docs.google.com/spreadsheets/d/1qnNxgRPuyIrlm4as1ygEL9L_l0cXcXdnA1QgmarJsdk/
+
 - Markdown documentation: https://www.markdownguide.org/basic-syntax/
 - Workshop info: https://airobolab.uni.lu/Workshops/AIFA-2020
 
@@ -83,4 +85,19 @@ All commands should work both in Linux Ubuntu bash and Windows command promt. To
 **Check status**
 
     $ git status
+
+# Scientific part
+
+## Explainable AI (XAI)
+
+## Human-Robot Interaction (HRI)
+
+### Emotions and affective robots
+
+- http://groups.csail.mit.edu/lbr/hrg/2001/ecal.pdf
+- https://www.researchgate.net/profile/Frank_Kaptein/publication/322876575_The_role_of_emotion_in_self-explanations_by_cognitive_agents/links/5b110f64a6fdcc4611d9c546/The-role-of-emotion-in-self-explanations-by-cognitive-agents.pdf
+- https://link.springer.com/chapter/10.1007/978-3-319-96722-6_6
+- https://www.researchgate.net/profile/Malte_Jung/publication/334095719_Emotion_Expression_in_HRI_-When_and_Why/links/5d16411c299bf1547c86ee1e/Emotion-Expression-in-HRI-When-and-Why.pdf
+
+
 
