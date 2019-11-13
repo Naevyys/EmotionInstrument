@@ -33,7 +33,7 @@ Contains the code for the final technical deliverable of Iris Kremer: a python p
 ### Other
 
 - BSP3 activity report: https://docs.google.com/spreadsheets/d/1qnNxgRPuyIrlm4as1ygEL9L_l0cXcXdnA1QgmarJsdk/
-
+- Final report read-only link: https://www.overleaf.com/read/bkndvbmrtryc
 - Markdown documentation: https://www.markdownguide.org/basic-syntax/
 - Workshop info: https://airobolab.uni.lu/Workshops/AIFA-2020
 
@@ -89,6 +89,8 @@ All commands should work both in Linux Ubuntu bash and Windows command promt. To
 # Scientific part
 
 ## Explainable AI (XAI)
+
+- https://www.degruyter.com/downloadpdf/j/pjbr.2018.9.issue-1/pjbr-2018-0009/pjbr-2018-0009.pdf
 
 ## Human-Robot Interaction (HRI)
 
