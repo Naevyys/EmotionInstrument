@@ -101,6 +101,7 @@ All commands should work both in Linux Ubuntu bash and Windows command promt. To
 - <https://link.springer.com/chapter/10.1007/978-3-319-96722-6_6>
 - <https://www.researchgate.net/profile/Malte_Jung/publication/334095719_Emotion_Expression_in_HRI_-When_and_Why/links/5d16411c299bf1547c86ee1e/Emotion-Expression-in-HRI-When-and-Why.pdf>
 - <https://www.researchgate.net/profile/Eduard_Fosch_Villaronga/publication/335706066_I_Love_You_Said_the_Robot_Boundaries_of_the_Use_of_Emotions_in_Human-Robot_Interactions/links/5da9b56e299bf111d4be4e0f/I-Love-You-Said-the-Robot-Boundaries-of-the-Use-of-Emotions-in-Human-Robot-Interactions.pdf>
+- <https://books.google.lu/books?hl=en&lr=&id=gQhFzMzW9fsC&oi=fnd&pg=PA1&dq=emotion+selection+in+evolution&ots=vZ6RNEmth3&sig=t_poUAWjTLZ3o6ueWLiQtFlaaL0&redir_esc=y#v=onepage&q=emotion%20selection%20in%20evolution&f=false>
 
 ## Robots and music
 
