@@ -46,28 +46,34 @@ class noteShifter:
 
 		#Math to shift note
 
-		noteN = ord(self.note[0]) - 65
+		noteN = ord(self.note[0]) - 65 #Ranges from A to G
 
-		if len(self.note) == 2:
+		if len(self.note) == 2: #If no semitone
 			octaveN = int(self.note[1])
-		else if len(self.note) == 3:
+		else if len(self.note) == 3: #If semitone
 			semitone = self.note[1]
 			octaveN = int(self.note[2])
 		else:
 			return #Something is wrong with the note received
 
 		newNoteN = (noteN + shift) % 7
-		realIncrement = (noteN - 2) % 7 + shift
+		newNoteStr = chr(newNoteN + 65)
+		
+		if semitone:
+			newNoteStr = newNoteStr + semitone			
+			if newNoteStr == "E#":
+				newNoteStr = "F" # E# is the same as F
+			else if newNoteStr == "B#":
+				newNoteStr = "C" # B# is the same as C
+
+		realIncrement = (noteN - 2) % 7 + shift # -2 and %7 because C is 2 but should be 0 for real increment and A is 0 but should be 5 for real increment etc.
 
 		if realIncrement > 7: #In case we reach one octave higher
 			octaveN += 1
 		else if realIncrement < 0: #Reach one octave lower
 			octaveN -= 1
-
-		if semitone:
-			self.note = chr(newNoteN + 65) + semitone + str(octaveN)
-		else:
-			self.note = chr(newNoteN + 65) + str(octaveN)
+		
+		self.note = newNoteStr + str(octaveN)
 
 def main():
 
