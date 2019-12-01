@@ -33,7 +33,7 @@ class noteShifter:
 		extention = ".wav"
 
 		self.note = data.data
-		self.shiftNote()
+		self.shiftNote() #Shift the note if necessary
 		fileName = path + self.note + extension
 		self.musicPub.publish(fileName)
 
@@ -45,14 +45,33 @@ class noteShifter:
 			return		
 
 		#Math to shift note
-		octaveN = self.note[1]
+
 		noteN = ord(self.note[0]) - 65
-		newNoteN = (n + shift) % 7
-		self.note = chr(newN + 65) + octaveN
+
+		if len(self.note) == 2:
+			octaveN = int(self.note[1])
+		else if len(self.note) == 3:
+			semitone = self.note[1]
+			octaveN = int(self.note[2])
+		else:
+			return #Something is wrong with the note received
+
+		newNoteN = (noteN + shift) % 7
+		realIncrement = (noteN - 2) % 7 + shift
+
+		if realIncrement > 7: #In case we reach one octave higher
+			octaveN += 1
+		else if realIncrement < 0: #Reach one octave lower
+			octaveN -= 1
+
+		if semitone:
+			self.note = chr(newNoteN + 65) + semitone + str(octaveN)
+		else:
+			self.note = chr(newNoteN + 65) + str(octaveN)
 
 def main():
 
-	emotion = emotionListener()
+	note = noteShifter()
 
 	rospy.init_node('emotionConverter', anonymous=True)
 

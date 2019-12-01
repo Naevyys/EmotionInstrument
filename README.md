@@ -17,9 +17,9 @@ Contains the code for the final technical deliverable of Iris Kremer: a python p
 Written in the form [shift] / [octave].
 
 - Neutral: 0 / C major
-- Angry: 
-- Happy: 
-- Surprised: 
+- Angry: 1 (test placeholder) 
+- Happy: 2 (test placeholder)
+- Surprised: 3 (test placeholder)
 
 ## Current issues
 
@@ -52,7 +52,7 @@ Written in the form [shift] / [octave].
 
 #### Sample code
 
-- <https://github.com/luxai-qtrobot/tutorials (*demos* and *examples* documents)>
+- <https://github.com/luxai-qtrobot/tutorials> (*demos* and *examples* documents)
 
 #### Documentation
 
