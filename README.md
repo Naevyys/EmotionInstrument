@@ -2,6 +2,35 @@
 
 Contains the code for the final technical deliverable of Iris Kremer: a python program that makes QT play music according to the emotion of the person in front of it.
 
+# Code information
+
+## General algorithm
+
+- Node emotionReader reads the facial expression of the user from the topic "qt_nuitrack_app/faces" and computes a shift for the notes according to the emotion detected
+- On topic "/QTInstrument/emotion", the node emotionReades publishes the shift computed
+- The node emotionConverter subscribes to the topic "/QTInstrument/emotion" to get the shift and to the topic "/QTInstrument/music" to get the note which should be played originally
+- Using the ASCII number of the note, adding the shift and taking the modulo, the emotionConverter node will then compute the new note according to the emotion detected
+- Finally, the emotionConverter node publishes the corresponding file to play to the topic "/QTrobot/audio/play"
+
+### Notes shift
+
+Written in the form [shift] / [octave].
+
+- Neutral: 0 / C major
+- Angry: 
+- Happy: 
+- Surprised: 
+
+## Current issues
+
+- Imposes a naming convention for notes audio files
+- Dependance of Eliott's code implementation
+- Minor octaves implementation imposes additional computations compared to a normal shift, so I will start with only major octaves and implement minor octaves if I have time left
+
+## Important notes
+
+- I have to create a separate, more rudimentary music publisher in order to test my code and prove that this project is independent from Eliott's project
+
 # Resources and useful links
 
 ## Documentation

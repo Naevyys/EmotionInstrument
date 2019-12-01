@@ -2,7 +2,7 @@
 
 import rospy
 import cv2
-from std_msgs.msg import String
+from std_msgs.msg import Int8
 from sensor_msgs.msg import Image
 from qt_nuitrack_app.msg import Faces
 from cv_bridge import CvBridge, CvBridgeError
@@ -10,20 +10,21 @@ from cv_bridge import CvBridge, CvBridgeError
 class emotionAnalyser:
 
 	face = None
-	expression = None
+	emotion = None
+	shift = None
 
 	def __init__(self):
 
 		self.facesSub = rospy.Subscriber("qt_nuitrack_app/faces", Faces, self.faceCallback)
-		self.emotionPub = rospy.Publisher("/QTInstrument/emotion", String, queue_size=1)
+		self.emotionPub = rospy.Publisher("/QTInstrument/emotion", Int8, queue_size=1)
 
 	def faceCallback(self, data):
 
 		self.face = data.faces[0]
 
-		self.expression = self.findEmotion(self.face)
+		(self.emotion, self.shift) = self.findEmotion(self.face)
 
-		self.emotionPub.publish(self.expression)
+		self.emotionPub.publish(self.shift)
 
 	def findEmotion(self, face):
 
@@ -32,17 +33,19 @@ class emotionAnalyser:
 		happy = face.emotion_happy
 		surprise = face.emotion_surprise
 
-		emotionArray = [[neutral, "neutral"], [angry, "angry"], [happy, "happy"], [surprise, "surprise"]]
+		emotionArray = [(neutral, 0, "neutral"), (angry, 1, "angry"), (happy, 2, "happy"), (surprise, 3, "surprise")]
 
 		top = 0
 		emotion = None
+		shift = None
 
-		for i in range(4):
+		for i in range(len(emotionArray)):
 			if top < emotionArray[i][0]:
 				top = emotionArray[i][0]
-				emotion = emotionArray[i][1]
+				emotion = emotionArray[i][2]
+				shift = emotionArray[i][1]
 
-		return emotion
+		return (emotion, shift)
 	
 
 class imageView:
