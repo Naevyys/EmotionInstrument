@@ -21,6 +21,8 @@ class noteShifter:
 
 	note = None
 	shift = emotionListener()
+	minOctave = 1 #Depends on our files
+	maxOctave = 5 #Depends on our files
 
 	def __init__(self):
 
@@ -62,9 +64,15 @@ class noteShifter:
 		if semitone:
 			newNoteStr = newNoteStr + semitone			
 			if newNoteStr == "E#":
-				newNoteStr = "F" # E# is the same as F
+				if shift >= 0:
+					newNoteStr = "F" # E# is the same as F
+				else:
+					newNoteStr = "E" #e.g. shift of a gives from F# to E#, but should have been from F# to E
 			else if newNoteStr == "B#":
-				newNoteStr = "C" # B# is the same as C
+				if shift >= 0:
+					newNoteStr = "C" # B# is the same as C
+				else:
+					newNoteStr = "B" #same issue as E# becoming E
 
 		realIncrement = (noteN - 2) % 7 + shift # -2 and %7 because C is 2 but should be 0 for real increment and A is 0 but should be 5 for real increment etc.
 
@@ -73,6 +81,9 @@ class noteShifter:
 		else if realIncrement < 0: #Reach one octave lower
 			octaveN -= 1
 		
+		if octaveN < self.minBound or octaveN > self.maxBound:
+			return #Shifting makes the note too high or too low and we don't have the files for these tones
+
 		self.note = newNoteStr + str(octaveN)
 
 def main():
