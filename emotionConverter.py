@@ -29,9 +29,12 @@ class noteShifter:
 
 	def noteCallback(self, data):
 		
+		path = "QT/"
+		extention = ".wav"
+
 		self.note = data.data
 		self.shiftNote()
-		fileName = self.note + ".wav"
+		fileName = path + self.note + extension
 		self.musicPub.publish(fileName)
 
 	def shiftNote(self):
