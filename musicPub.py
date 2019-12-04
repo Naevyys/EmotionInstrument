@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import rospy
-from std_msgs.msg import String
+from std_msgs.msg import Int16
 
 class noteSender:
 
@@ -9,12 +9,12 @@ class noteSender:
 
 	def __init__(self):
 
-		self.musicPub = rospy.Publisher("/QTInstrument/music", String, queue_size=1)
+		self.musicPub = rospy.Publisher("/QTInstrument/music", Int16, queue_size=1)
 
 	def sendMusic(self):
 
-		self.note = "C3"
-		self.musicPub.publish(self.note)
+		self.note = 403 #Octave 4, note D major, just as an example
+		self.musicPub.publish(self.note)	
 
 def main():
 
@@ -22,7 +22,7 @@ def main():
 
 	rospy.init_node('musicPub', anonymous=True)
 
-	rate = ropsy.Rate(1)
+	rate = rospy.Rate(1)
 
 	try:
 
@@ -34,3 +34,4 @@ def main():
 
 		print("Shutting down...")
 
+main()

@@ -23,7 +23,7 @@ class emotionAnalyser:
 		self.face = data.faces[0]
 
 		(self.emotion, self.shift) = self.findEmotion(self.face)
-
+		print(self.emotion)
 		self.emotionPub.publish(self.shift)
 
 	def findEmotion(self, face):
