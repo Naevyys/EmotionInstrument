@@ -36,7 +36,7 @@ class noteShifter:
 		(noteStr, octaveStr) = self.shiftNote() #Shift the note and octave if necessary
 		path = 'Octaves/Octave' + octaveStr + "/"
 		fileName = path + noteStr + self.extension
-		#self.musicPub.publish(fileName)
+		self.musicPub.publish(fileName)
 		print(fileName)
 
 	def shiftNote(self):

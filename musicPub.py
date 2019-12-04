@@ -22,7 +22,7 @@ def main():
 
 	rospy.init_node('musicPub', anonymous=True)
 
-	rate = rospy.Rate(1)
+	rate = rospy.Rate(2.5)
 
 	try:
 
