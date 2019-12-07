@@ -1,145 +1,67 @@
-# About
+# User guide
 
-Contains the code for the final technical deliverable of Iris Kremer: a python program that makes QT play music according to the emotion of the person in front of it.
+This is a short user guide explaining how to run the code successfully. It was written such that absolutely (hopefully) everyone knowing what a terminal is can understand it.
 
-# Code information
+## Prerequisites
 
-## General algorithm
+- This code was made to run on QTrobot only, it does not work on any other robot or computer.
+- To run correctly, we need both computers of QT working (QTPC and QT132/QT110 depending on which QT you run the code) and have the bi-directional connection between them enabled.
 
-- Node emotionReader reads the facial expression of the user from the topic "qt_nuitrack_app/faces" and computes a shift for the notes according to the emotion detected
-- On topic "/QTInstrument/emotion", the node emotionReades publishes the shift computed
-- The node emotionConverter subscribes to the topic "/QTInstrument/emotion" to get the shift and to the topic "/QTInstrument/music" to get the note which should be played originally
-- Using the ASCII number of the note, adding the shift and taking the modulo, the emotionConverter node will then compute the new note according to the emotion detected
-- Finally, the emotionConverter node publishes the corresponding file to play to the topic "/QTrobot/audio/play"
+From here on, we will assume that you are using the most recent version of QT, which has the computers QTPC and QT132 [07/12/2019]. However, the tutorial should work for the previous version of QT (with computers QTPC and QT110) too.
 
-### Notes shift
+## Clone repository and setup
 
-Written in the form [shift] / [octave].
+- Open a terminal on QTPC (T1)
+- Clone this repository anywhere convenient on QTPC. The exact location of the code does not matter.
+- If not already there, change directory to the folder containing the cloned repository named EmotionInstrument (but not inside the repository)
+- Copy the entire repository into any remote directory on QT132 using the command
+        scp -r EmotionInstrument qtrobot@192.168.100.1:/remote/directory/
+- Open a second terminal (T2) on QTPC and ssh to QT132 using the command
+        ssh qtrobot@192.168.100.1
+- In T2, change directory to the home directory of QT132
+- Move the entire Octaves folder from the EmotionInstrument repository to robot/data/audios using the command
+        mv /remote/directory/EmotionInstrument/Octaves /robot/data/audios
+- In T1, change directory to the repository EmotionInstrument
+- In T2, change directory to the repository EmotionInstrument
+- Open a third terminal (T3) on QTPC and run the following command to make QTPC run on the ROS master of QT132 (This is necessary to enable the nodes on the different computers to publish on and subscribe to the same topics)
+        export ROS_MASTER_URI=http://qtrobot@192.168.100.1:11311
+- In T3, change directory to the repository EmotionInstrument
 
-- Neutral: 0 / C major
-- Angry: 1 (test placeholder) 
-- Happy: 2 (test placeholder)
-- Surprised: 3 (test placeholder)
+You are setup to run the code.
 
-## Current issues
+## Running the code
 
-- Imposes a naming convention for notes audio files
-- Dependance of Eliott's code implementation
-- Minor octaves implementation imposes additional computations compared to a normal shift, so I will start with only major octaves and implement minor octaves if I have time left
+- In T1, run the following command to start the musicPub node
+        python musicPub.py
+- In T2, run the following command to start the emotionConverter node (remember that T2 is currently in QT132, which is very important). After running this command, QT should start playing the same note over and over
+        python emotionConverter.py
+- In T3, run the following command to start the emotionReader node
+        python emotionReader.py
 
-## Important notes
+Now stand up and go or put someone else in front of QT. When the person in front of QT changes his or her facial expression (neutral, angry, happy or surprised), the note played by QT will change according to the emotion detected.
 
-- I have to create a separate, more rudimentary music publisher in order to test my code and prove that this project is independent from Eliott's project
+## Running the code together with another program
 
-# Resources and useful links
+Instead of using the provided, boring musicPub node, the code can work with another program which was written to use QT as an instrument.
 
-## Documentation
+From now on, we will call the entire other program QTInstrumentProgram.
 
-### ROS
+### Prerequisites
 
-- Tutorials: <http://wiki.ros.org/ROS/Tutorials>
+QTInstrumentProgram needs to meet some (very few) criteria in order to work well with the code provided here:
 
-## OpenCV
+- QTInstrumentProgram publishes individual notes as data of type Int8, ranging from 1 (C) to 12 (B) (e.g. 7 = F# = Gb), to the topic /QTInstrument/music
+- The advised maximal rate of publishing is around 2.5 - 2.6 publications per second
+- QTInstrumentProgram does not publish audio files to play to the topic /qt_robot/audio/play by itself
 
-- Tutorials: <https://docs.opencv.org/master/d6/d00/tutorial_py_root.html>
+### How to run the programs together
 
-### QT
+- Close T3, we don't need it anymore
+- Start QTInstrumentProgram in a/some new terminal/s
+- In T2, run the following command to start the emotionConverter node (remember that T2 is in QT132). After running this command, if someone plays music with QT, QT should emit the normal notes played by the player
+        python emotionConverter.py
+- In T1, run the following command to start the emotionReader node
+        python emotionReader.py
 
-#### General information
-
-- <http://luxai.com/who-is-qtrobot-for-autism/>
-- <http://luxai.com/qtrobot-for-research>
-
-#### Sample code
-
-- <https://github.com/luxai-qtrobot/tutorials> (*demos* and *examples* documents)
-
-#### Documentation
-
-- <http://wiki.ros.org/Robots/qtrobot>
-- <https://robots.ros.org/qtrobot>
-
-### Other
-
-- BSP3 activity report: <https://docs.google.com/spreadsheets/d/1qnNxgRPuyIrlm4as1ygEL9L_l0cXcXdnA1QgmarJsdk/>
-- Final report read-only link: <https://www.overleaf.com/read/bkndvbmrtryc>
-- Markdown documentation: <https://www.markdownguide.org/basic-syntax/>
-- Workshop info: <https://airobolab.uni.lu/Workshops/AIFA-2020>
-
-## Research
-
-### Similar projects
-
-- <http://www.paulvangent.com/2016/06/30/making-an-emotion-aware-music-player/>
-
-# Git commands from bash
-
-All commands should work both in Linux Ubuntu bash and Windows command promt. To use a command, you must be located inside the repository.
-
-**Clone repository**
-
-    $ git clone REPOSITORYURL
-
-**Change branch**
-
-    $ git checkout YOUR-BRANCH
-
-**Change username and email**
-
-    $ git config [--global|--local] user.name "YOUR-USERNAME"
-    $ git config [--global|--local] user.email "YOUR-EMAIL" 
-
-**Push to github**
-
-1. Stage files
-
-        $ git add FILENAMES
-
-2. Commit changes
-
-        $ git commit -m "COMMIT MESSAGE"
-
-3. Push to github
-
-        $ git push origin YOUR-BRANCH
-
-**Fetch**
-
-    $ git fetch origin BRANCH
-
-**Pull**
-
-    $ git pull origin BRANCH
-
-**Check status**
-
-    $ git status
-
-# Scientific part
-
-## Explainable AI (XAI)
-
-- <https://www.degruyter.com/downloadpdf/j/pjbr.2018.9.issue-1/pjbr-2018-0009/pjbr-2018-0009.pdf>
-
-## Human-Robot Interaction (HRI)
-
-### Emotions and affective robots
-
-- <http://groups.csail.mit.edu/lbr/hrg/2001/ecal.pdf>
-- <https://www.researchgate.net/profile/Frank_Kaptein/publication/322876575_The_role_of_emotion_in_self-explanations_by_cognitive_agents/links/5b110f64a6fdcc4611d9c546/The-role-of-emotion-in-self-explanations-by-cognitive-agents.pdf>
-- <https://link.springer.com/chapter/10.1007/978-3-319-96722-6_6>
-- <https://www.researchgate.net/profile/Malte_Jung/publication/334095719_Emotion_Expression_in_HRI_-When_and_Why/links/5d16411c299bf1547c86ee1e/Emotion-Expression-in-HRI-When-and-Why.pdf>
-- <https://www.researchgate.net/profile/Eduard_Fosch_Villaronga/publication/335706066_I_Love_You_Said_the_Robot_Boundaries_of_the_Use_of_Emotions_in_Human-Robot_Interactions/links/5da9b56e299bf111d4be4e0f/I-Love-You-Said-the-Robot-Boundaries-of-the-Use-of-Emotions-in-Human-Robot-Interactions.pdf>
-- <https://books.google.lu/books?hl=en&lr=&id=gQhFzMzW9fsC&oi=fnd&pg=PA1&dq=emotion+selection+in+evolution&ots=vZ6RNEmth3&sig=t_poUAWjTLZ3o6ueWLiQtFlaaL0&redir_esc=y#v=onepage&q=emotion%20selection%20in%20evolution&f=false>
-
-## Robots and music
-
-### Musician robots
-
-- <http://magnus.ece.gatech.edu/Papers/Paper3.pdf>
-
-### Music teacher robots
-
-- <https://www.researchgate.net/profile/Ali_Meghdari/publication/308928265_Social_Robots_and_Teaching_Music_to_Autistic_Children_Myth_or_Reality/links/59cb13400f7e9bbfdc36bdeb/Social-Robots-and-Teaching-Music-to-Autistic-Children-Myth-or-Reality.pdf>
-- <http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.592.2947&rep=rep1&type=pdf>
+Now, the notes played by the player in front of QT will be shifted according to his or her facial expression.
 
