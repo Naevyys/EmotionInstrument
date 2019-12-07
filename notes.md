@@ -14,12 +14,10 @@ Contains the code for the final technical deliverable of Iris Kremer: a python p
 
 ### Notes shift
 
-Written in the form [shift] / [octave].
-
-- Neutral: 0 / C major
-- Angry: 1 (test placeholder) 
-- Happy: 2 (test placeholder)
-- Surprised: 3 (test placeholder)
+- Neutral: 0
+- Angry: -2 
+- Happy: 2
+- Surprised: 4
 
 ## To do
 

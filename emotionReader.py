@@ -33,7 +33,7 @@ class emotionAnalyser:
 		happy = face.emotion_happy
 		surprise = face.emotion_surprise
 
-		emotionArray = [(neutral, 0, "neutral"), (angry, 1, "angry"), (happy, 2, "happy"), (surprise, 3, "surprise")]
+		emotionArray = [(neutral, 0, "neutral"), (angry, -2, "angry"), (happy, 2, "happy"), (surprise, 4, "surprise")]
 
 		top = 0
 		emotion = None
