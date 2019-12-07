@@ -64,7 +64,7 @@ From now on, we will call the entire other program QTInstrumentProgram.
 
 QTInstrumentProgram needs to meet some (very few) criteria in order to work well with the code provided here:
 
-- QTInstrumentProgram publishes individual notes as data of type Int8, ranging from 1 (C) to 12 (B) (e.g. 7 = F# = Gb), to the topic /QTInstrument/music
+- QTInstrumentProgram publishes individual notes as data of type Int16, in the format ONN, where 3 <= O <= 5 (octave between 3 and 5) and 01 <= NN <= 12 (note between 1 and 12, where 1 = C and 12 = B (e.g. 7 = F# = Gb)) to the topic /QTInstrument/music
 - The advised maximal rate of publishing is around 2.5 - 2.6 publications per second
 - QTInstrumentProgram does not publish audio files to play to the topic /qt_robot/audio/play by itself
 
