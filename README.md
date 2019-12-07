@@ -16,22 +16,22 @@ From here on, we will assume that you are using the most recent version of QT, w
 3. If not already there, change directory to the folder containing the cloned repository named EmotionInstrument (but not inside the repository)
 4. Copy the entire repository into any remote directory on QT132 using the command
 
-        scp -r EmotionInstrument qtrobot@192.168.100.1:/remote/directory/
+        $ scp -r EmotionInstrument qtrobot@192.168.100.1:/remote/directory/
 
 5. Open a second terminal (T2) on QTPC and ssh to QT132 using the command
 
-        ssh qtrobot@192.168.100.1
+        $ ssh qtrobot@192.168.100.1
 
 6. In T2, change directory to the home directory of QT132
 7. Move the entire Octaves folder from the EmotionInstrument repository to robot/data/audios using the command
 
-        mv /remote/directory/EmotionInstrument/Octaves /robot/data/audios
+        $ mv /remote/directory/EmotionInstrument/Octaves /robot/data/audios
 
 8. In T1, change directory to the repository EmotionInstrument
 9. In T2, change directory to the repository EmotionInstrument
 10. Open a third terminal (T3) on QTPC and run the following command to make QTPC run on the ROS master of QT132 (This is necessary to enable the nodes on the different computers to publish on and subscribe to the same topics)
 
-        export ROS_MASTER_URI=http://qtrobot@192.168.100.1:11311
+        $ export ROS_MASTER_URI=http://qtrobot@192.168.100.1:11311
 
 11. In T3, change directory to the repository EmotionInstrument
 
@@ -41,15 +41,15 @@ You are now setup to run the code.
 
 1. In T1, run the following command to start the musicPub node
 
-        python musicPub.py
+        $ python musicPub.py
 
 2. In T2, run the following command to start the emotionConverter node (remember that T2 is currently in QT132, which is very important). After running this command, QT should start playing the same note over and over
 
-        python emotionConverter.py
+        $ python emotionConverter.py
 
 3. In T3, run the following command to start the emotionReader node
 
-        python emotionReader.py
+        $ python emotionReader.py
 
 
 Now stand up and go or put someone else in front of QT. When the person in front of QT changes his or her facial expression (neutral, angry, happy or surprised), the note played by QT will change according to the emotion detected.
@@ -74,11 +74,11 @@ QTInstrumentProgram needs to meet some (very few) criteria in order to work well
 2. Start QTInstrumentProgram in a/some new terminal/s
 3. In T2, run the following command to start the emotionConverter node (remember that T2 is in QT132). After running this command, if someone plays music with QT, QT should emit the normal notes played by the player
 
-        python emotionConverter.py
+        $ python emotionConverter.py
 
 4. In T1, run the following command to start the emotionReader node
 
-        python emotionReader.py
+        $ python emotionReader.py
 
 Now, the notes played by the player in front of QT will be shifted according to his or her facial expression.
 
