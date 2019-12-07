@@ -48,12 +48,12 @@ class noteShifter:
 		
 		n = self.note + shift
 		
-		if n < 0:
+		if n < 1:
 			self.octave -= 1
 		elif n > 12:
 			self.octave += 1
 
-		self.note = n % 12
+		self.note = ((n - 1) % 12) + 1 #Notes received and file names range from 1 to 12, not from 0 to 11
 
 		return (str(self.note), str(self.octave))
 
