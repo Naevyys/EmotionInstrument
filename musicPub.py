@@ -13,7 +13,7 @@ class noteSender:
 
 	def sendMusic(self):
 
-		self.note = 403 #Octave 4, note D major, just as an example
+		self.note = 407 #Octave 4, note D major, just as an example
 		self.musicPub.publish(self.note)	
 
 def main():
